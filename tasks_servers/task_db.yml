@@ -1,0 +1,8 @@
+---
+
+- name: include apt
+
+- name: db dependency
+  package:
+    name: postgresql
+    state: latest

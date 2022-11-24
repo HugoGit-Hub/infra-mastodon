@@ -1,0 +1,12 @@
+---
+
+- name: configure dhclient
+  lineinfile:
+    regexp: ^#?prepend domain\-name\-servers .*$
+    line: "prepend domain-name-servers 8.8.8.8;"
+    path: /etc/dhcp/dhclient.conf
+  register: dhclient_conf
+
+- name: reboot when dhclient changed
+  reboot:
+  when: dhclient_conf.changed

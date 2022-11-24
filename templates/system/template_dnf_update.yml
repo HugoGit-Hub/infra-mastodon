@@ -1,0 +1,7 @@
+---
+
+- name:
+  dnf:
+    update_cache: yes
+    name: "*"
+    state: latest

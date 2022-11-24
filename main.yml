@@ -1,0 +1,9 @@
+---
+
+- name: deploy DB
+  hosts: all
+  tasks:
+
+    - name: hostname configuration
+      include_tasks: templates/system/template_conf_hostname.yml
+
