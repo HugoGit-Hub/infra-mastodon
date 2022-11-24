@@ -4,6 +4,11 @@
   hosts: all
   tasks:
 
+    - name: dnf or apt update
+      include_tasks: rules/rule_apt_dnf_update.yml
+
     - name: hostname configuration
       include_tasks: templates/system/template_conf_hostname.yml
 
+    - name: dhclient configuration
+      include_tasks: templates/system/template_conf_dhclient.yml
