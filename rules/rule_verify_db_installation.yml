@@ -1,0 +1,16 @@
+---
+
+- name: remove present mysql
+  package:
+    name: mysql*
+    state: absent
+  when: db_server != 'mysql'
+
+- name: remove present mariadb
+  package:
+    name: mariadb*
+    state: absent
+  when: db_server != 'mariadb'
+
+- name: install db
+  include_tasks: templates/production/template_db_install.yml

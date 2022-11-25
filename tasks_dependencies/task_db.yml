@@ -1,8 +1,7 @@
 ---
 
-- name: include apt
-
 - name: db dependency
-  package:
-    name: postgresql
-    state: latest
+  include_tasks: rules/rule_verify_db_installation.yml
+
+- name: db start
+  include_tasks: templates/production/template_db_start.yml

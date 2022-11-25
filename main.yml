@@ -12,3 +12,6 @@
 
     - name: dhclient configuration
       include_tasks: templates/system/template_conf_dhclient.yml
+
+    - name: db installation
+      include_tasks: tasks_dependencies/task_db.yml
