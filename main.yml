@@ -1,6 +1,6 @@
 ---
 
-- name: deploy DB
+- name: CONFUGURATION (all)
   hosts: all
   tasks:
 
@@ -12,6 +12,10 @@
 
     - name: dhclient configuration
       include_tasks: templates/system/template_conf_dhclient.yml
+
+- name: DEPLOY PRODUCTION (mastodon)
+  hosts: mastodon
+  tasks:
 
     - name: db installation
       include_tasks: tasks_dependencies/task_db.yml

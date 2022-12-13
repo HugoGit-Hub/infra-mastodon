@@ -1,0 +1,6 @@
+---
+
+- name: template install python 3
+  package:
+    name: python3
+    state: latest

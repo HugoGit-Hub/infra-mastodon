@@ -5,3 +5,15 @@
 
 - name: db start
   include_tasks: templates/production/template_db_start.yml
+
+- name: db configure postgresql
+  include_tasks: templates/system/template_python_install.yml
+
+- name: db configure postgresql
+  include_tasks: templates/system/template_pip_install.yml
+
+- name: db configure postgresql
+  include_tasks: templates/system/template_psycopg2_install.yml
+
+- name: db configure postgresql
+  include_tasks: templates/production/template_postgresql_config.yml

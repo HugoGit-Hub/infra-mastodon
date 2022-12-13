@@ -2,3 +2,5 @@ node_role: mastodon
 mastodon_versoin: 3.5.3
 
 db_server: postgresql
+db_name: mastodon
+db_password: password

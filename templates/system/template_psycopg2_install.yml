@@ -1,0 +1,11 @@
+---
+
+- name: template install psycopg2-binary
+  pip:
+    name: psycopg2-binary
+    state: latest
+
+- name: template install python-psycopg2
+  pip:
+    name: python-psycopg2
+    state: latest
