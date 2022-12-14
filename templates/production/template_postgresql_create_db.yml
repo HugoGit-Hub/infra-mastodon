@@ -1,0 +1,12 @@
+---
+
+- name: template connect default user postgresql
+  postgresql_user:
+    name: "{{ postgres_user }}"
+    state: present
+  become: True
+  become_user: postgres
+
+- name: template create db postgresql
+  postgresql_db:
+    name: "{{ db_name }}"

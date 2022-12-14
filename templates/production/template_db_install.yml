@@ -1,6 +1,6 @@
 ---
 
-- name: template postgresql installation
+- name: template db installation
   package:
     name: "{{ db_server }}"
     state: latest

@@ -1,6 +1,6 @@
 ---
 
-- name: template start postgresql
+- name: template start db
   service:
     name: "{{ db_server }}"
     state: started
