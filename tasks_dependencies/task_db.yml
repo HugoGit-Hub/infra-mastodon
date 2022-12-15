@@ -9,6 +9,14 @@
 - name: system install acl
   include_tasks: templates/system/template_install_acl.yml
 
-- name: postgresql create database
-  include_tasks: templates/production/template_postgresql_create_db.yml
+- name: postgres set user postgres password
+  include_tasks: templates/production/template_postgres_set_password.yml
 
+- name: postgresql create database
+  include_tasks: templates/production/template_postgres_create_db.yml
+
+- name: postgres create user
+  include_tasks: templates/production/template_postgres_create_user.yml
+
+- name: postgres give privilege
+  include_tasks: templates/production/template_postgres_privilege_user.yml

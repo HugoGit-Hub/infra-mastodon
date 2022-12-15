@@ -1,0 +1,7 @@
+---
+
+- name: template create db
+  postgresql_db:
+    name: "{{ db_name }}"
+  become: yes
+  become_user: "{{ postgres_default_user }}"

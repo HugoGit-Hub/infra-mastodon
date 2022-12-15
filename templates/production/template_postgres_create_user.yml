@@ -1,0 +1,9 @@
+---
+
+- name: template create user db mastodon
+  postgresql_user:
+    db: "{{ db_name }}"
+    name: "{{ postgres_mastodon_user }}"
+    password: "{{ postgres_mastodon_password }}"
+  become: yes
+  become_user: "{{ postgres_default_user }}"
