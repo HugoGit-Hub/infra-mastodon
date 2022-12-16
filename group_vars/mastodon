@@ -4,8 +4,10 @@ mastodon_versoin: 3.5.3
 db_server: postgresql
 db_name: mastodon
 
+postgres_default_user: postgres
+postgres_default_password: password
+
 postgres_mastodon_user: mastodon
 postgres_mastodon_password: password.mastodon
 
-postgres_default_user: postgres
-postgres_default_password: password
+system_user: mastodon

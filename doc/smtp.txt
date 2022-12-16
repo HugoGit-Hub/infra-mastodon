@@ -1,0 +1,20 @@
+sudo apt install postfix
+choisr Site internet et remplir keyce.local ( mettre le hostname)
+nano /etc/postfix/main.cf
+
+my hostname = hostname ( debian par defaut)
+my destination = domaine qui correspond a la machine attention si le domaine apparai dans mydestination le mail ne partira pas et restera en interne 
+inet-interface = all ecoute partout sino loopback-only (secure)
+systemctl restart postfix 
+
+Pour tester l'envoi de mail 
+
+apt install mailutils
+
+echo "ceci est un email test" | mail -s "Sujet de test" adressemail@dest
+
+
+
+
+
+mdp admin mastodon = e5e92884dbc9b0186e3875005b1b1dab

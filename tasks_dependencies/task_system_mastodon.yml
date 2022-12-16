@@ -1,0 +1,4 @@
+---
+
+- name:
+  include_tasks: templates/system/template_adduser.yml

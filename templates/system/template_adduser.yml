@@ -1,0 +1,6 @@
+---
+
+- name: template adduser mastodon
+  user:
+    name: "{{ system_user }}"
+    password: '!'

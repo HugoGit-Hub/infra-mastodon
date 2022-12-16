@@ -17,5 +17,11 @@
   hosts: mastodon
   tasks:
 
+    - name: system configuration
+      include_tasks: tasks_dependencies/task_system_mastodon.yml
+
     - name: db installation
       include_tasks: tasks_dependencies/task_db.yml
+
+    - name: ruby installation
+      include_tasks: tasks_dependencies/task_ruby.yml

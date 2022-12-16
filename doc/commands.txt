@@ -1,0 +1,141 @@
+sudo git curl nginx
+
+Ajout du depot :
+echo "deb [signed-by=/etc/apt/keyrings/postgresql.asc] http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+
+import de la cle publique postgresql:
+sudo mkdir -p /etc/apt/keyrings/
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/keyrings/postgresql.asc
+
+MAJ du depot et installation postgresql
+sudo apt update
+sudo apt install -y postgresql postgresql-contrib
+
+verification de l'ecoute postgresql
+sudo ss -lnpt | grep postgres
+
+Connexion console postgres
+sudo -u postgres -i psql
+
+Creation bdd mastodon
+CREATE DATABASE mastodon;
+
+Creation user mastodon
+CREATE USER mastodon;
+
+Mot de passe user mastodon
+ALTER USER mastodon WITH ENCRYPTED PASSWORD 'Keyce123';
+
+Autorisation du user mastodon a creer une base de donne 
+ALTER USER mastodon createdb;
+
+Definir le user mastondon a etre proprietaire de la bbd mastodon
+ALTER DATABASE mastodon OWNER TO mastodon;
+
+quiter postgres
+\q
+
+instalation ruby
+sudo apt install ruby ruby-dev
+
+Creation d'un user mastodon sans mdp sur le systeme
+sudo adduser mastodon --system --group --disabled-login
+
+instaltion de git ( pour telecharger mastodon)
+sudo apt install git
+
+telechargement mastodon via git
+cd /var/www/
+git clone https://github.com/mastodon/mastodon.git mastodon && cd mastodon
+git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)    //// mise a jour de la derniere version 
+
+Changement proprietaire repertoire mastondon 
+sudo chown -R mastodon:mastodon /var/www/mastodon/
+
+gestionnaire des dependances ruby ( a faire dans le repertoire mastondon)
+sudo gem install bundler
+
+install nodejs 
+curl -sL https://deb.nodesource.com/setup_16.x | sudo bash -
+sudo apt install nodejs
+
+install yarn ( gestionnaire de paquet nodejs)
+
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+sudo apt update
+sudo apt -y install yarn
+
+instalation paquet pour compliler le code source
+sudo apt install redis-server optipng pngquant jhead jpegoptim gifsicle nodejs imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev libidn11-dev libicu-dev libjemalloc-dev
+
+instalation des dependance mastondon(a faire dans le repertoire mastondon)
+sudo -u mastodon bundle config deployment 'true'
+sudo -u mastodon bundle config without 'development test'
+sudo -u mastodon bundle install -j$(getconf _NPROCESSORS_ONLN)
+
+lancer setup mastondon
+sudo -u mastodon RAILS_ENV=production bundle exec rake mastodon:setup
+domain name = keyce.local
+single user = no
+docker = no
+postgresql host = 127.0.0.1
+postgre port = 5432 ( par defaut)
+nom bdd psotgre = mastodon
+nom user bdd postgre = mastodon
+password bdd = Keyce123
+redis host = 127.0.0.1
+redis port = 6379 ( par defaut)
+mdp redis = vide no password
+stockage fichier cloud = no
+envoi de mail localhost = oui 
+addresse mail mastodon = Mastodon <notifications@keyce.local> ( par defaut)
+email test = user@keyce.local
+sauver al configuration = yes
+ecraser si bdd existante = oui 
+compil th e asset = yes
+creation user admin  = yes
+user = admin
+mail = root@keyce.local
+mdp = genere auto
+
+demarrer mastodon
+copie systemd mastodon
+sudo cp /var/www/mastodon/dist/mastodon*.service /etc/systemd/system/
+
+modification fichier service
+sudo sed -i 's/home\/mastodon\/live/var\/www\/mastodon/g' /etc/systemd/system/mastodon-*.service
+sudo sed -i 's/home\/mastodon\/.rbenv\/shims/usr\/local\/bin/g' /etc/systemd/system/mastodon-*.service
+sudo systemctl daemon-reload
+
+demarage systemd mastodon
+sudo systemctl enable --now mastodon-web mastodon-sidekiq mastodon-streaming
+
+verif status mastodon 
+sudo systemctl status mastodon-web mastodon-sidekiq mastodon-streaming
+
+verif port mastodon 
+sudo ss -lnpt | grep 3000
+
+configuration nginx
+
+copie template config
+sudo cp /var/www/mastodon/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf
+
+modification template 
+sudo nano /etc/nginx/conf.d/mastodon.conf
+remplacer server_name par social.keyce.local ( sur la parti http et https)
+remplacer le repertoire root par /var/www/mastodon/public ( http et https)
+
+rajout des certificat temporaire
+ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+creation d'un repertoire cache
+sudo mkdir -p /var/nginx/cache/
+
+test nginx 
+sudo nginx -t
+
+redemarrer le service nginx
+sudo systemctl reload nginx
