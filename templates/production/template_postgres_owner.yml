@@ -1,0 +1,10 @@
+---
+
+- name: template change database owner
+  postgresql_owner:
+    db: "{{ db_name }}"
+    new_owner: "{{ postgres_mastodon_user }}"
+    obj_name: "{{ db_name }}"
+    obj_type: database
+  become: true
+  become_user: "{{ postgres_default_user }}"

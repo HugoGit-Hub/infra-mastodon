@@ -20,3 +20,6 @@
 
 - name: postgres give privilege
   include_tasks: templates/production/template_postgres_privilege_user.yml
+
+- name: postgres change owner of mastodon database
+  include_tasks: templates/production/template_postgres_owner.yml
