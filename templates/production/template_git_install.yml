@@ -1,6 +1,0 @@
----
-
-- name: template git installation
-  package:
-    name: git
-    state: latest

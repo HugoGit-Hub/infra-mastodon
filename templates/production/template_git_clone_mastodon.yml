@@ -4,3 +4,4 @@
   git:
     repo: https://github.com/mastodon/mastodon.git
     dest: /var/www/mastodon
+    force: True

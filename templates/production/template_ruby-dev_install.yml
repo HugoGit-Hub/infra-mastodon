@@ -1,6 +1,0 @@
----
-
-- name: template ruby-dev installation
-  package:
-    name: ruby-dev
-    state: latest

@@ -3,5 +3,8 @@
 - name: git clone mastodon
   include_tasks: templates/production/template_git_clone_mastodon.yml
 
-- name: chnage owner of /var/www/mastodon
+- name: change owner of /var/www/mastodon
   include_tasks: templates/system/template_owner_var_www_mastodon.yml
+
+- name: ruby dependency installation
+  include_tasks: templates/production/template_ruby_dependencies.yml

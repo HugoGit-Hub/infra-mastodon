@@ -1,6 +1,0 @@
----
-
-- name: template nginx installation
-  package:
-    name: nginx
-    state: latest
