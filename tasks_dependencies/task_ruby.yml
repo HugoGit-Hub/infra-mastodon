@@ -1,7 +1,0 @@
----
-
-- name: installation ruby
-  include_tasks: templates/production/template_ruby_install.yml
-
-- name: installation ruby-dev
-  include_tasks: templates/production/template_ruby-dev_install.yml

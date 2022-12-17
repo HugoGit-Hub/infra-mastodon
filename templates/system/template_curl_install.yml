@@ -1,0 +1,6 @@
+---
+
+- name: template curl installation
+  package:
+    name: curl
+    state: latest

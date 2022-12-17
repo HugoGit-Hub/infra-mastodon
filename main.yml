@@ -18,10 +18,13 @@
   tasks:
 
     - name: system configuration
-      include_tasks: tasks_dependencies/task_system_mastodon.yml
+      include_tasks: tasks_dependencies/task_system.yml
 
-    - name: db installation
+    - name: dependencies installations
+      include_tasks: tasks_dependencies/task_dependencies_installations.yml
+
+    - name: db installation and configuration
       include_tasks: tasks_dependencies/task_db.yml
 
-    - name: ruby installation
-      include_tasks: tasks_dependencies/task_ruby.yml
+    - name: mastodon installation and configuration
+      include_tasks: tasks_dependencies/task_mastodon.yml

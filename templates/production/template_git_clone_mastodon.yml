@@ -1,0 +1,6 @@
+---
+
+- name: template git clone mastodon
+  git:
+    repo: https://github.com/mastodon/mastodon.git
+    dest: /var/www/mastodon

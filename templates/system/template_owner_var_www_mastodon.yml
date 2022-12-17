@@ -1,0 +1,7 @@
+---
+
+- name: template change owner of var/www/mastodon
+  file:
+    path: /var/www/mastodon
+    owner: "{{ system_user }}"
+    group: "{{ system_user }}"

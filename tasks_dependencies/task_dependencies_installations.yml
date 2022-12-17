@@ -1,0 +1,16 @@
+---
+
+- name: installation ruby
+  include_tasks: templates/production/template_ruby_install.yml
+
+- name: installation ruby-dev
+  include_tasks: templates/production/template_ruby-dev_install.yml
+
+- name: git installation
+  include_tasks: templates/production/template_git_install.yml
+
+- name: curl installation
+  include_tasks: templates/system/template_curl_install.yml
+
+- name: nginx installation
+  include_tasks: templates/production/template_nginx_install.yml
