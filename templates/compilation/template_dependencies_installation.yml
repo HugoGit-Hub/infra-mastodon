@@ -43,3 +43,10 @@
     - libidn11-dev
     - libicu-dev
     - libjemalloc-dev
+    - python3
+    - pip
+
+- name: template install psycopg2-binary
+  pip:
+    name: psycopg2-binary
+    state: latest

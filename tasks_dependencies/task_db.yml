@@ -6,9 +6,6 @@
 - name: db start
   include_tasks: templates/production/template_db_start.yml
 
-- name: system install acl
-  include_tasks: templates/system/template_install_acl.yml
-
 - name: postgres set user postgres password
   include_tasks: templates/production/template_postgres_set_password.yml
 

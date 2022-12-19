@@ -1,8 +1,0 @@
----
-
-- name: template bundler installation
-  gem:
-    user_install: false
-    install_dir: /var/www/mastodon
-    name: bundler
-    state: latest

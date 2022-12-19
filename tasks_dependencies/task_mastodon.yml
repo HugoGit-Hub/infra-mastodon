@@ -7,4 +7,7 @@
   include_tasks: templates/system/template_owner_var_www_mastodon.yml
 
 - name: ruby dependency installation
-  include_tasks: templates/production/template_ruby_dependencies.yml
+  include_tasks: templates/production/template_bundler_dependencies.yml
+
+- name: mastodon dependencies installation and configuration
+  include_tasks: templates/production/template_mastodon_dependencies.yml
