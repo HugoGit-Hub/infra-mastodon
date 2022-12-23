@@ -4,9 +4,3 @@
   command: gem install bundler
   args:
     chdir: /var/www/mastodon
-
-  # gem:
-  #   name: bundler
-  #   state: latest
-  #   user_install: false
-  #   install_dir: /var/www/mastodon

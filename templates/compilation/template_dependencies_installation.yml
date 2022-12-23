@@ -45,6 +45,11 @@
     - libjemalloc-dev
     - python3
     - pip
+    - wget
+    - gnupg
+    - apt-transport-https
+    - lsb-release
+    - ca-certificates
 
 - name: template install psycopg2-binary
   pip:

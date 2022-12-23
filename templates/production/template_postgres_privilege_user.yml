@@ -6,6 +6,6 @@
     database: "{{ db_name }}"
     roles: "{{ postgres_mastodon_user }}"
     privs: all
-    grant_option: false
+    grant_option: True
   become: true
   become_user: "{{ postgres_default_user }}"

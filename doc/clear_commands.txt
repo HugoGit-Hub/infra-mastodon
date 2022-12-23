@@ -1,0 +1,112 @@
+sudo apt install
+    git
+    curl
+    nginx
+    ruby
+    ruby-dev
+    nodejs
+    yarn
+    redis-server
+    optipng
+    pngquant
+    jhead
+    jpegoptim
+    gifsicle
+    nodejs
+    imagemagick
+    ffmpeg
+    libpq-dev
+    libxml2-dev
+    libxslt1-dev
+    file
+    g++
+    libprotobuf-dev
+    protobuf-compiler
+    pkg-config
+    gcc
+    autoconf
+    bison
+    build-essential
+    libssl-dev
+    libyaml-dev
+    libreadline6-dev
+    zlib1g-dev
+    libncurses5-dev
+    libffi-dev
+    libgdbm-dev
+    libidn11-dev
+    libicu-dev
+    libjemalloc-dev
+
+### A faire dans le repertoire mastondon var/www/mastodon ###
+sudo gem install
+    bundler
+
+sudo apt update
+
+sudo apt install -y postgresql postgresql-contrib
+sudo -u postgres -i psql
+CREATE DATABASE mastodon;
+CREATE USER mastodon;
+ALTER USER mastodon WITH ENCRYPTED PASSWORD 'Keyce123';
+ALTER USER mastodon createdb;
+ALTER DATABASE mastodon OWNER TO mastodon;
+\q 
+
+sudo adduser mastodon --system --group --disabled-login
+
+cd /var/www/
+git clone https://github.com/mastodon/mastodon.git mastodon && cd mastodon 
+sudo chown -R mastodon:mastodon /var/www/mastodon/
+
+### A faire dans le repertoire mastondon var/www/mastodon ###
+sudo -u mastodon bundle config deployment 'true'
+sudo -u mastodon bundle config without 'development test'
+sudo -u mastodon bundle install -j$(getconf _NPROCESSORS_ONLN)
+
+sudo -u mastodon RAILS_ENV=production bundle exec rake mastodon:setup
+
+### Configuration mastodon ###
+    domain name = keyce.local
+    single user = no
+    docker = no
+    postgresql host = 127.0.0.1
+    postgre port = 5432 ( par defaut)
+    nom bdd psotgre = mastodon
+    nom user bdd postgre = mastodon
+    password bdd = Keyce123
+    redis host = 127.0.0.1
+    redis port = 6379 ( par defaut)
+    mdp redis = vide no password
+    stockage fichier cloud = no
+    envoi de mail localhost = oui 
+    addresse mail mastodon = Mastodon <notifications@keyce.local> ( par defaut)
+    email test = user@keyce.local
+    sauver la configuration = yes
+    ecraser si bdd existante = oui 
+    compil the asset = yes
+    creation user admin  = yes
+    user = admin
+    mail = root@keyce.local
+    mdp = genere auto
+
+sudo cp /var/www/mastodon/dist/mastodon*.service /etc/systemd/system/
+
+sudo sed -i 's/home\/mastodon\/live/var\/www\/mastodon/g' /etc/systemd/system/mastodon-*.service
+sudo sed -i 's/home\/mastodon\/.rbenv\/shims/usr\/local\/bin/g' /etc/systemd/system/mastodon-*.service
+sudo systemctl daemon-reload
+
+sudo systemctl enable --now mastodon-web mastodon-sidekiq mastodon-streaming
+
+sudo cp /var/www/mastodon/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf
+
+### remplacer server_name par social.keyce.local ( sur la parti http et https) ###
+### remplacer le repertoire root par /var/www/mastodon/public ( http et https) ###
+sudo nano /etc/nginx/conf.d/mastodon.conf
+
+ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
+ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
+
+sudo mkdir -p /var/nginx/cache/
+
+sudo systemctl reload nginx
