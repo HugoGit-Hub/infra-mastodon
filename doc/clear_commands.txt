@@ -37,12 +37,22 @@ sudo apt install
     libidn11-dev
     libicu-dev
     libjemalloc-dev
+    postfix
+    mailutils
 
 ### A faire dans le repertoire mastondon var/www/mastodon ###
-sudo gem install
-    bundler
+sudo gem install bundler
 
-sudo apt update
+### Choisr le site internet et remplir keyce.local (mettre le hostname) ###
+nano /etc/postfix/main.cf
+    my hostname = hostname ( debian par defaut)
+    my destination = domaine qui correspond a la machine attention si le domaine apparai dans mydestination le mail ne partira pas et restera en interne 
+    inet-interface = all ecoute partout sino loopback-only (secure)
+
+systemctl restart postfix 
+
+### Test envoi de mail ###
+echo "Email test" | mail -s "Sujet test" string@exemple.com
 
 sudo apt install -y postgresql postgresql-contrib
 sudo -u postgres -i psql
@@ -51,7 +61,6 @@ CREATE USER mastodon;
 ALTER USER mastodon WITH ENCRYPTED PASSWORD 'Keyce123';
 ALTER USER mastodon createdb;
 ALTER DATABASE mastodon OWNER TO mastodon;
-\q 
 
 sudo adduser mastodon --system --group --disabled-login
 

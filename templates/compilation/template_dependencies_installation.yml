@@ -50,6 +50,8 @@
     - apt-transport-https
     - lsb-release
     - ca-certificates
+    - postfix
+    - mailutils
 
 - name: template install psycopg2-binary
   pip:
