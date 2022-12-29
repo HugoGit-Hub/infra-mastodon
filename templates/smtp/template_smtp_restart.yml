@@ -1,0 +1,6 @@
+---
+
+- name: template restart smtp
+  service:
+    name: postfix
+    state: restarted

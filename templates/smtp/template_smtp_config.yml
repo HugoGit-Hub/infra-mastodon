@@ -1,4 +1,19 @@
 ---
 
-- name: template configuration smtp server
-  
+- name: template configuration smtp myhostname
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: ^myhostname = .*$
+    line: "myhostname = hostname"
+
+- name: template configuration smtp mydestination
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: ^mydestination = .*$
+    line: "mydestination = destination"
+
+- name: template configuration smtp inet
+  lineinfile:
+    path: /etc/postfix/main.cf
+    regexp: ^inet_interfaces = all .*$
+    line: "inet_interfaces = all"

@@ -45,9 +45,9 @@ sudo gem install bundler
 
 ### Choisr le site internet et remplir keyce.local (mettre le hostname) ###
 nano /etc/postfix/main.cf
-    my hostname = hostname ( debian par defaut)
-    my destination = domaine qui correspond a la machine attention si le domaine apparai dans mydestination le mail ne partira pas et restera en interne 
-    inet-interface = all ecoute partout sino loopback-only (secure)
+    myhostname = hostname ( debian par defaut)
+    mydestination = domaine qui correspond a la machine attention si le domaine apparai dans mydestination le mail ne partira pas et restera en interne 
+    inet_interface = all ecoute partout sinon loopback-only (secure)
 
 systemctl restart postfix 
 

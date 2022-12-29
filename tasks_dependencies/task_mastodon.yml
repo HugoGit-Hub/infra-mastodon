@@ -1,13 +1,13 @@
 ---
 
-- name: git clone mastodon
+- name:
   include_tasks: templates/production/template_git_clone_mastodon.yml
 
 # - name: change owner of /var/www/mastodon
 #   include_tasks: templates/system/template_owner_var_www_mastodon.yml
 
-- name: ruby dependency installation
+- name:
   include_tasks: templates/production/template_bundler_dependencies.yml
 
-- name: mastodon dependencies installation and configuration
+- name:
   include_tasks: templates/production/template_mastodon_dependencies.yml

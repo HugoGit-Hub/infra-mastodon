@@ -1,22 +1,22 @@
 ---
 
-- name: db dependency
+- name:
   include_tasks: rules/rule_verify_db_installation.yml
 
-- name: db start
+- name:
   include_tasks: templates/production/template_db_start.yml
 
-- name: postgres set user postgres password
+- name:
   include_tasks: templates/production/template_postgres_set_password.yml
 
-- name: postgresql create database
+- name:
   include_tasks: templates/production/template_postgres_create_db.yml
 
-- name: postgres create user
+- name:
   include_tasks: templates/production/template_postgres_create_user.yml
 
-- name: postgres give privilege
+- name:
   include_tasks: templates/production/template_postgres_privilege_user.yml
 
-- name: postgres change owner of mastodon database
+- name:
   include_tasks: templates/production/template_postgres_owner.yml

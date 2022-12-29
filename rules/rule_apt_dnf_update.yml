@@ -1,9 +1,9 @@
 ---
 
-- name: verify OS (dnf)
+- name:
   include_tasks: templates/system/template_dnf_update.yml
   when: ansible_distribution == "CentOS" or ansible_distribution == "Red Hat" or ansible_distribution == "Fedora"
 
-- name: verify OS (apt)
+- name:
   include_tasks: templates/system/template_apt_update.yml
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"

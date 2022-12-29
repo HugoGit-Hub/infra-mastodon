@@ -1,4 +1,4 @@
 ---
 
-- name: compilation installation
+- name:
   include_tasks: templates/compilation/template_dependencies_installation.yml

@@ -1,0 +1,7 @@
+---
+
+- name:
+  include_tasks: templates/smtp/template_smtp_config.yml
+
+- name:
+  include_tasks: templates/smtp/template_smtp_restart.yml
