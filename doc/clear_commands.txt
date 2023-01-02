@@ -103,8 +103,8 @@ sudo cp /var/www/mastodon/dist/mastodon*.service /etc/systemd/system/
 
 sudo sed -i 's/home\/mastodon\/live/var\/www\/mastodon/g' /etc/systemd/system/mastodon-*.service
 sudo sed -i 's/home\/mastodon\/.rbenv\/shims/usr\/local\/bin/g' /etc/systemd/system/mastodon-*.service
-sudo systemctl daemon-reload
 
+sudo systemctl daemon-reload
 sudo systemctl enable --now mastodon-web mastodon-sidekiq mastodon-streaming
 
 sudo cp /var/www/mastodon/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf
@@ -112,10 +112,8 @@ sudo cp /var/www/mastodon/dist/nginx.conf /etc/nginx/conf.d/mastodon.conf
 ### remplacer server_name par social.keyce.local ( sur la parti http et https) ###
 ### remplacer le repertoire root par /var/www/mastodon/public ( http et https) ###
 sudo nano /etc/nginx/conf.d/mastodon.conf
-
 ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
 ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
 
 sudo mkdir -p /var/nginx/cache/
-
 sudo systemctl reload nginx

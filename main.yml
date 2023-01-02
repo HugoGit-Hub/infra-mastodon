@@ -31,3 +31,6 @@
 
     - name:
       include_tasks: tasks_dependencies/task_mastodon.yml
+
+    - name:
+      include_tasks: tasks_dependencies/task_latest.yml

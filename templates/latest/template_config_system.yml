@@ -1,0 +1,31 @@
+---
+
+- name:
+  copy:
+    src: /var/www/mastodon/dist/mastodon*.service
+    dest: /etc/systemd/system/
+
+- name:
+  replace:
+    path: home\/mastodon\/live/var\/www\/mastodon/g
+    replace: /etc/systemd/system/mastodon-*.service
+
+- name:
+  replace:
+    path: home\/mastodon\/.rbenv\/shims/usr\/local\/bin/g
+    replace: /etc/systemd/system/mastodon-*.service
+
+- name: template restart daemon-reload
+  systemd:
+    daemon_reload: yes
+    state: restarted
+
+- name: template enable mastodon-web mastodon-sidekiq mastodon-streaming
+  systemd:
+    enabled: yes
+    name: mastodon-web mastodon-sidekiq mastodon-streaming
+
+- name: template copy
+  copy:
+    src: /var/www/mastodon/dist/nginx.conf
+    dest: /etc/nginx/conf.d/mastodon.conf

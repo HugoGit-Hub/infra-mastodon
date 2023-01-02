@@ -1,0 +1,34 @@
+---
+
+- name: template configuration nginx server name
+  lineinfile:
+    path: /etc/nginx/conf.d/mastodon.conf
+    regexp: ^server_name .*$
+    line: "server_name social.keyce.local;"
+
+- name: template configuration root directory
+  lineinfile:
+    path: /etc/nginx/conf.d/mastodon.conf
+    regexp: ^root .*$
+    line: "root /var/www/mastodon/public;"
+
+- name: template configuration ssl certificate
+  lineinfile:
+    path: /etc/nginx/conf.d/mastodon.conf
+    regexp: ^ssl_certificate .*$
+    line: "ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;"
+
+- name: template configuration ssl certificate key
+  lineinfile:
+    path: /etc/nginx/conf.d/mastodon.conf
+    regexp: ^ssl_certificate_key .*$
+    line: "ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;"
+
+- name: template create directory web cache
+  file:
+    path: /var/nginx/cache/
+
+- name:
+  systemd:
+    name: nginx
+    status: reload

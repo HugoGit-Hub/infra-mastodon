@@ -1,0 +1,7 @@
+---
+
+- name:
+  include_tasks: templates/latest/template_config_system.yml
+
+- name:
+  include_tasks: templates/latest/template_config_web.yml
