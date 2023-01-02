@@ -1,31 +1,56 @@
 ---
 
-- name:
+- name: template copy mastodon .service files to /etc/systemd/system/
   copy:
-    src: /var/www/mastodon/dist/mastodon*.service
-    dest: /etc/systemd/system/
+    src: /var/www/mastodon/dist/{{ item }}
+    dest: /etc/systemd/system/{{ item }}
+    remote_src: true
+  loop:
+    - mastodon-sidekiq.service
+    - mastodon-streaming.service
+    - mastodon-web.service
+
+- name: template config change WorkingDirectory
+  replace:
+    path: /etc/systemd/system/{{ item }}
+    regexp: ^WorkingDirectory=.*$
+    replace: 'WorkingDirectory=s/home\/mastodon\/live/var\/www\/mastodon/g'
+  loop:
+    - mastodon-sidekiq.service
+    - mastodon-streaming.service
+    - mastodon-web.service
 
 - name:
   replace:
-    path: home\/mastodon\/live/var\/www\/mastodon/g
-    replace: /etc/systemd/system/mastodon-*.service
+    path: /etc/systemd/system/{{ item }}
+    regexp: ^ExecStart=.*$
+    replace: 'ExecStart=s/home\/mastodon\/live/var\/www\/mastodon/g'
+  loop:
+    - mastodon-sidekiq.service
+    - mastodon-streaming.service
+    - mastodon-web.service
 
-- name:
-  replace:
-    path: home\/mastodon\/.rbenv\/shims/usr\/local\/bin/g
-    replace: /etc/systemd/system/mastodon-*.service
+# - name: template restart daemon-reload
+#   systemd:
+#     daemon_reload: yes
+#     state: restarted
+#     name: '{{ item }}'
+#   loop:
+#     - mastodon-sidekiq.service
+#     - mastodon-streaming.service
+#     - mastodon-web.service
 
-- name: template restart daemon-reload
-  systemd:
-    daemon_reload: yes
-    state: restarted
-
-- name: template enable mastodon-web mastodon-sidekiq mastodon-streaming
-  systemd:
-    enabled: yes
-    name: mastodon-web mastodon-sidekiq mastodon-streaming
+# - name: template enable mastodon-web mastodon-sidekiq mastodon-streaming
+#   systemd:
+#     enabled: yes
+#     name: '{{ item }}'
+#   loop:
+#     - mastodon-web
+#     - mastodon-sidekiq
+#     - mastodon-streaming
 
 - name: template copy
   copy:
     src: /var/www/mastodon/dist/nginx.conf
     dest: /etc/nginx/conf.d/mastodon.conf
+    remote_src: true

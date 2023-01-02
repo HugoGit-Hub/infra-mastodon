@@ -28,7 +28,7 @@
   file:
     path: /var/nginx/cache/
 
-- name:
+- name: template reload nginx
   systemd:
     name: nginx
-    status: reload
+    state: started
