@@ -4,19 +4,8 @@
   command: bundle config deployment 'true'
   args:
     chdir: /var/www/mastodon
-  become: true
-  become_user: "{{ system_user }}"
 
 - name: template config without developement test
   command: bundle config without 'development test'
   args:
     chdir: /var/www/mastodon
-  become: true
-  become_user: "{{ system_user }}"
-
-# - name: template install _NPROCESSORS_ONLN
-#   command: bundle install -j$(getconf _NPROCESSORS_ONLN)
-#   args:
-#     chdir: /var/www/mastodon
-#   become: true
-#   become_user: "{{ system_user }}"
