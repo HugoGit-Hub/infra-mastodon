@@ -4,3 +4,4 @@
   command: gem install bundler
   args:
     chdir: /var/www/mastodon
+  become_user: "{{ system_user }}"

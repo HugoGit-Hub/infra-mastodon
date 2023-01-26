@@ -2,12 +2,12 @@
 
 - name: template configuration 
   lineinfile:
-    path: /var/www/mastodon/.env.production
+    path: /var/www/mastodon/.env.production.sample
     regexp: ^DB_NAME=.*$
     line: "DB_NAME={{ db_name }}"
 
 - name:
   lineinfile:
-    path: /var/www/mastodon/.env.production
+    path: /var/www/mastodon/.env.production.sample
     regexp: ^DB_PASS=.*$
     line: "DB_PASS={{ postgres_default_password }}"

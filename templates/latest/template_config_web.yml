@@ -27,6 +27,7 @@
 - name: template create directory web cache
   file:
     path: /var/nginx/cache/
+    state: directory
 
 - name: template reload nginx
   systemd:
