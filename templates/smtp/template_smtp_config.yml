@@ -4,7 +4,7 @@
   lineinfile:
     path: /etc/postfix/main.cf
     regexp: ^myhostname = .*$
-    line: "myhostname = hostname"
+    line: "myhostname = {{system_mastodon_hostname}}"
 
 - name: template configuration smtp mydestination
   lineinfile:

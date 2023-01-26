@@ -1,6 +1,8 @@
 node_role: mastodon
 mastodon_versoin: 3.5.3
 
+system_mastodon_hostname: mastodon
+
 db_server: postgresql
 db_name: mastodon
 
